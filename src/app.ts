@@ -37,7 +37,7 @@ class App {
     private errorHandler = () => {
         this.app.use((error: any, req: Request, res: Response, next: NextFunction) => {
             console.log(error);
-            res.status(500).send(error);
+            res.status(error.rc || 500).send(error);
         })
     }
 

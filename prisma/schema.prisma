@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Account {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  gender    GENDER
+  age       Int?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  password  String?
+  Address   Address?
+}
+
+model Address {
+  title      String
+  phone      String
+  adress     String
+  postalCode String
+  accountId  Int      @unique
+  createdAt  DateTime @default(now())
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Account    Account  @relation(fields: [accountId], references: [id])
+}
+
+enum GENDER {
+  MALE
+  FEMALE
+}
