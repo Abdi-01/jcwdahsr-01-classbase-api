@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { prisma } from "../config/prisma";
 import { hashPassword } from "../utils/hashPassword";
+import { compare } from "bcrypt";
+import { createToken } from "../utils/createToken";
 
 class AuthController {
     public register = async (req: Request, res: Response, next: NextFunction) => {
@@ -31,7 +33,34 @@ class AuthController {
 
     public login = async (req: Request, res: Response, next: NextFunction) => {
         try {
+            const { email, password } = req.body;
+            // 2. filter to prisma.account
+            const account = await prisma.account.findUnique({
+                where: {
+                    email
+                }
+            })
 
+            if (!account) {
+                throw { rc: 404, success: false, message: "Account not found" }
+            }
+
+            // 3. compare password
+            const checkPassword = await compare(password, account?.password as string);
+            if (!checkPassword) {
+                throw { rc: 401, success: false, message: "Wrong password" }
+            }
+
+            // create token
+            const token = createToken({ id: account.id });
+
+            res.status(200).send({
+                name: account.name,
+                email: account.email,
+                gender: account.gender,
+                age: account.age,
+                token
+            });
         } catch (error) {
             next(error);
         }
