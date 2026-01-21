@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors";
+import AuthRouter from "./routers/auth.router";
 
 const PORT = process.env.PORT;
 
@@ -28,6 +29,8 @@ class App {
         })
 
         // define route
+        const authRouter = new AuthRouter();
+        this.app.use("/auth", authRouter.getRouter());
     }
 
     // Private methode for errorhandling
