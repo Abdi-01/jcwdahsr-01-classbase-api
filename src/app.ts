@@ -39,6 +39,11 @@ class App {
     }
 
     // Public methode for start API
+    public startAPI = () => {
+        this.app.listen(PORT, () => {
+            console.log(`API RUNNING at http://localhost:${PORT}`);
+        })
+    }
 
 }
 
