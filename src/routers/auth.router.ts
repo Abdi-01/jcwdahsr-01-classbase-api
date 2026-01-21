@@ -1,5 +1,6 @@
 import { Router } from "express";
 import AuthController from "../controllers/auth.controller";
+import { verifyToken } from "../middleware/verify";
 
 class AuthRouter {
     private route: Router;
@@ -17,7 +18,7 @@ class AuthRouter {
 
         this.route.post("/regis", register);
         this.route.post("/login", login);
-        this.route.get("/refresh", keepLogin)
+        this.route.get("/refresh", verifyToken, keepLogin)
     }
 
     // public methode for getroute config

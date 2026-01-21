@@ -13,6 +13,7 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
 
         res.locals.decript = decript;
 
+        next();
     } catch (error) {
         next(error);
     }

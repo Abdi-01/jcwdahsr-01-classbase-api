@@ -68,7 +68,27 @@ class AuthController {
 
     public keepLogin = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            res.status(200).send("Keeplogin test")
+            const { id } = res.locals.decript;
+
+            const account = await prisma.account.findUnique({
+                where: {
+                    id: Number(id)
+                }
+            })
+
+            if (!account) {
+                throw { rc: 401, success: false, message: "Unautorized token" }
+            }
+            // create token
+            const token = createToken({ id: account.id });
+
+            res.status(200).send({
+                name: account.name,
+                email: account.email,
+                gender: account.gender,
+                age: account.age,
+                token
+            });
         } catch (error) {
             next(error);
         }
