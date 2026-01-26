@@ -2,6 +2,7 @@ import { Router } from "express";
 import AuthController from "../controllers/auth.controller";
 import { verifyToken } from "../middleware/verify";
 import { regisSchemaValidation, validationCheck } from "../middleware/validator/auth.validation";
+import { uploader } from "../middleware/uploader";
 
 class AuthRouter {
     private route: Router;
@@ -15,11 +16,13 @@ class AuthRouter {
 
     // Private methode for listing endpoint and controller
     private initializeRoute = () => {
-        const { register, login, keepLogin } = this.authController;
+        const { register, login, keepLogin, uploadImgProfile } = this.authController;
 
         this.route.post("/regis", regisSchemaValidation, validationCheck, register);
         this.route.post("/login", login);
-        this.route.get("/refresh", verifyToken, keepLogin)
+        this.route.get("/refresh", verifyToken, keepLogin);
+
+        this.route.patch("/img-profile", verifyToken, uploader("IMGP", "/images").single("img"), uploadImgProfile);
     }
 
     // public methode for getroute config
