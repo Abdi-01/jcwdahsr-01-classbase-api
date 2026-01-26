@@ -3,6 +3,8 @@ import { prisma } from "../config/prisma";
 import { hashPassword } from "../utils/hashPassword";
 import { compare } from "bcrypt";
 import { createToken } from "../utils/createToken";
+import transport from "../config/nodemailer";
+import { regisTemplate } from "../templates/regis.template";
 
 class AuthController {
     public register = async (req: Request, res: Response, next: NextFunction) => {
@@ -20,6 +22,15 @@ class AuthController {
 
             const newAccount = await prisma.account.create({
                 data: { ...req.body, password: await hashPassword(req.body.password) }
+            })
+
+            // send email
+
+            await transport.sendMail({
+                from: process.env.MAIL_SENDER,
+                to: newAccount.email,
+                subject: "Registration info",
+                html: regisTemplate(newAccount.name)
             })
 
             res.status(200).send({
