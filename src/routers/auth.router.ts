@@ -1,6 +1,7 @@
 import { Router } from "express";
 import AuthController from "../controllers/auth.controller";
 import { verifyToken } from "../middleware/verify";
+import { regisSchemaValidation, validationCheck } from "../middleware/validator/auth.validation";
 
 class AuthRouter {
     private route: Router;
@@ -16,7 +17,7 @@ class AuthRouter {
     private initializeRoute = () => {
         const { register, login, keepLogin } = this.authController;
 
-        this.route.post("/regis", register);
+        this.route.post("/regis", regisSchemaValidation, validationCheck, register);
         this.route.post("/login", login);
         this.route.get("/refresh", verifyToken, keepLogin)
     }
