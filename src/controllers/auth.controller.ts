@@ -45,11 +45,10 @@ class AuthController {
 
   public login = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { email, password } = req.body;
       // 2. filter to prisma.account
       const account = await prisma.account.findUnique({
         where: {
-          email,
+          email: req.body.email,
         },
       });
 
@@ -59,7 +58,7 @@ class AuthController {
 
       // 3. compare password
       const checkPassword = await compare(
-        password,
+        req.body.password,
         account?.password as string,
       );
       if (!checkPassword) {

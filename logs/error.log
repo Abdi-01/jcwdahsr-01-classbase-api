@@ -1,0 +1,12 @@
+2026-02-04 19:49:43 [ERROR]: POST /auth/login: Cannot destructure property 'email' of 'req.body' as it is undefined. {}
+2026-02-04 19:50:51 [ERROR]: POST /auth/login: Cannot destructure property 'email' of 'req.body' as it is undefined. {}
+2026-02-04 19:51:48 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
+2026-02-04 19:52:17 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
+2026-02-04 19:52:48 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
+2026-02-04 19:53:45 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
+2026-02-04 19:54:01 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
+2026-02-04 19:54:46 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
+2026-02-04 19:55:31 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
+2026-02-04 19:55:50 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
+2026-02-04 19:55:51 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
+2026-02-04 19:56:59 [ERROR]: POST /auth/login: Account not found {"rc":404,"success":false,"message":"Account not found"}

@@ -24,8 +24,8 @@ class AuthRouter {
 
     this.route.get("/get-all", getAllAccount);
 
-    this.route.post("/regis", regisSchemaValidation, validationCheck, register);
     this.route.post("/login", login);
+    this.route.post("/regis", regisSchemaValidation, validationCheck, register);
     this.route.get("/refresh", verifyToken, keepLogin);
 
     this.route.patch(
