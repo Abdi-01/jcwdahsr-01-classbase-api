@@ -5,6 +5,7 @@ import cors from "cors";
 import AuthRouter from "./routers/auth.router";
 import path from "path";
 import client from "./config/redis";
+import logger from "./utils/logger";
 
 const PORT = process.env.PORT;
 
@@ -42,6 +43,9 @@ class App {
     this.app.use(
       (error: any, req: Request, res: Response, next: NextFunction) => {
         console.log(error);
+        logger.error(
+          `${req.method} ${req.path}: ${error.message || ""} ${JSON.stringify(error)}`,
+        );
         res.status(error.rc || 500).send(error);
       },
     );
