@@ -10,3 +10,4 @@
 2026-02-04 19:55:50 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
 2026-02-04 19:55:51 [ERROR]: POST /auth/login: Cannot read properties of undefined (reading 'email') {}
 2026-02-04 19:56:59 [ERROR]: POST /auth/login: Account not found {"rc":404,"success":false,"message":"Account not found"}
+2026-02-04 21:05:29 [ERROR]: POST /auth/login: Wrong password {"rc":401,"success":false,"message":"Wrong password"}
