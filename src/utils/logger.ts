@@ -19,14 +19,14 @@ const logger = createLogger({
     logFormat,
   ),
   transports: [
-    new transports.File({
-      filename: path.join(__dirname, "../../logs/error.log"),
-      format: format.combine(logFilter("error")),
-    }),
-    new transports.File({
-      filename: path.join(__dirname, "../../logs/info.log"),
-      format: format.combine(logFilter("info")),
-    }),
+    // new transports.File({
+    //   filename: path.join(__dirname, "../../logs/error.log"),
+    //   format: format.combine(logFilter("error")),
+    // }),
+    // new transports.File({
+    //   filename: path.join(__dirname, "../../logs/info.log"),
+    //   format: format.combine(logFilter("info")),
+    // }),
   ],
 });
 
