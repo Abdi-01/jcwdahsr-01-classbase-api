@@ -5,7 +5,7 @@ import {
   regisSchemaValidation,
   validationCheck,
 } from "../middleware/validator/auth.validation";
-import { uploader } from "../middleware/uploader";
+import { uploader, uploaderMemory } from "../middleware/uploader";
 
 class AuthRouter {
   private route: Router;
@@ -28,12 +28,21 @@ class AuthRouter {
     this.route.post("/regis", regisSchemaValidation, validationCheck, register);
     this.route.get("/refresh", verifyToken, keepLogin);
 
+    // store file with cloudinary
     this.route.patch(
       "/img-profile",
       verifyToken,
-      uploader("IMGP", "/images").single("img"),
+      uploaderMemory().single("img"),
       uploadImgProfile,
     );
+
+    // store file with diskStorage
+    // this.route.patch(
+    //   "/img-profile",
+    //   verifyToken,
+    //   uploader("IMGP", "/images").single("img"),
+    //   uploadImgProfile,
+    // );
   };
 
   // public methode for getroute config

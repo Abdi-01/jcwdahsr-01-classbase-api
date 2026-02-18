@@ -6,6 +6,7 @@ import { createToken } from "../utils/createToken";
 import transport from "../config/nodemailer";
 import { regisTemplate } from "../templates/regis.template";
 import client from "../config/redis";
+import { cloudinaryUpload } from "../config/cloudinary";
 
 class AuthController {
   public register = async (req: Request, res: Response, next: NextFunction) => {
@@ -118,13 +119,16 @@ class AuthController {
     next: NextFunction,
   ) => {
     try {
-      console.log(req.file);
-      const filePath = `/images/${req.file?.filename}`;
+      if (!req.file) {
+        throw { rc: 400, message: "File is no exist" };
+      }
+      const upload = await cloudinaryUpload(req.file);
+      console.log(upload);
 
       await prisma.account.update({
         where: { id: Number(res.locals.decript.id) },
         data: {
-          imgUrl: filePath,
+          imgUrl: upload.secure_url,
         },
       });
 
